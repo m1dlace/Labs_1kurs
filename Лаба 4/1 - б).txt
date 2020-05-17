@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lab4_1_2
+{
+    class Program
+    {
+        static string mainString;
+        static void GetString(out string mainString)
+        {
+            for (int i = 0; ; i++)
+            {
+                Console.Write("Введите предложение: ");
+                mainString = Console.ReadLine(); ;
+                if (mainString == "")
+                {
+                    Console.Write("Введена пустая строка\n");
+                    continue;
+                }
+                break;
+            }
+        }
+        static void CheckString(string mainString)
+        {
+            Console.Write("Все символы которые входят один раз: ");
+            for (int i = 0; i < mainString.Length; i++)
+            {
+                if (mainString.IndexOf(mainString[i]) == mainString.LastIndexOf(mainString[i]))
+                {
+                    Console.Write(mainString[i]);
+                }
+            }
+        }
+        static void UnShut()
+        {
+            Console.WriteLine();
+            Console.ReadKey();
+        }
+        static void Main(string[] args)
+        {
+            GetString(out mainString);
+            CheckString(mainString);
+            UnShut();
+        }
+    }
+}
+

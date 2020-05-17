@@ -1,0 +1,238 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+
+namespace lab4_7
+{
+    class Program
+    {
+        static string GetTimeSongs(string[] arrayStrings)
+        {
+            int aMinutes = 0, aSeconds = 0;
+            string returnString = "0";
+            Regex regexTimesong = new Regex(@"\d+:\d+");
+            string[] timeSongs = new string[arrayStrings.Length];
+            for (int i = 0; i < arrayStrings.Length; i++)
+            {
+                foreach (Match match in regexTimesong.Matches(arrayStrings[i]))
+                {
+                    timeSongs[i] = match.Groups[0].Value;
+                }
+            }
+            { // ќбработка минут началась
+                string[] minuteNumbers = new string[arrayStrings.Length];
+                Regex regexMinute = new Regex(@"^\d*\d");
+                for (int i = 0; i < arrayStrings.Length; i++)
+                {
+                    foreach (Match match in regexMinute.Matches(timeSongs[i]))
+                    {
+                        minuteNumbers[i] = match.Groups[0].Value;
+                    }
+                }
+                for (int i = 0; i < arrayStrings.Length; i++)
+                {
+                    aMinutes += Convert.ToInt32(minuteNumbers[i]);
+                }
+            } // ќбработка минут закончилась
+            { // ќбработка секунд началась
+                string[] secondNumber = new string[arrayStrings.Length];
+                Regex regexSeconds = new Regex(@"\d*\d$");
+                for (int i = 0; i < arrayStrings.Length; i++)
+                {
+                    foreach (Match match in regexSeconds.Matches(timeSongs[i]))
+                    {
+                        secondNumber[i] = match.Groups[0].Value;
+                    }
+                }
+                for (int i = 0; i < arrayStrings.Length; i++)
+                {
+                    aSeconds += Convert.ToInt32(secondNumber[i]);
+                }
+                while (aSeconds > 60)
+                {
+                    aMinutes++;
+                    aSeconds -= 60;
+                }
+            } // ќбработка секунд закончилась
+            returnString = "Minute " + Convert.ToString(aMinutes) + " Seconds " + Convert.ToString(aSeconds);
+            Console.WriteLine(returnString);
+            return returnString;
+        }
+
+
+        static string GetLongShortSong(string[] arrayStrings)
+        {
+            string ReturnString = "0";
+            Regex regexTimeSong = new Regex(@"\d+:\d+");
+            string[] timeSongs = new string[arrayStrings.Length];
+            string[] minuteNumber = new string[arrayStrings.Length];
+            string[] secondNumber = new string[arrayStrings.Length];
+            int[] timeAllSongs = new int[arrayStrings.Length];
+            for (int i = 0; i < arrayStrings.Length; i++)
+            {
+                foreach (Match match in regexTimeSong.Matches(arrayStrings[i]))
+                {
+                    timeSongs[i] = match.Groups[0].Value;
+                }
+            }
+            { // ќбработка секунд началась               
+                Regex regexSeconds = new Regex(@"\d*\d$");
+                for (int i = 0; i < arrayStrings.Length; i++)
+                {
+                    foreach (Match match in regexSeconds.Matches(timeSongs[i]))
+                    {
+                        secondNumber[i] = match.Groups[0].Value;
+                    }
+                }
+
+            } // ќбработка секунд закончилась
+            { // ќбработка минут началась
+
+                Regex regexMinute = new Regex(@"^\d*\d");
+                for (int i = 0; i < arrayStrings.Length; i++)
+                {
+                    foreach (Match match in regexMinute.Matches(timeSongs[i]))
+                    {
+                        minuteNumber[i] = match.Groups[0].Value;
+                    }
+                }
+            } // ќбработка минут закончилась
+            { // ќбработка длительности началась
+
+                for (int i = 0; i < arrayStrings.Length; i++)
+                {
+                    timeAllSongs[i] = Convert.ToInt32(secondNumber[i]);
+                    while (Convert.ToInt32(minuteNumber[i]) > 0)
+                    {
+                        minuteNumber[i] = Convert.ToString(Convert.ToInt32(minuteNumber[i]) - 1);
+                        timeAllSongs[i] += 60;
+                    }
+                }
+
+            } // ќбработка длительности закончилась
+            for (int i = 0; i < timeAllSongs.Length; i++)
+            {
+                if (timeAllSongs[i] == timeAllSongs.Min())
+                {
+                    Console.WriteLine("Cама€ маленька€ песн€:\n{0}", arrayStrings[i]);
+                }
+            }
+            for (int i = 0; i < timeAllSongs.Length; i++)
+            {
+                if (timeAllSongs[i] == timeAllSongs.Max())
+                {
+                    Console.WriteLine("Cама€ больша€ песн€:\n{0}", arrayStrings[i]);
+                }
+            }
+
+            return ReturnString;
+        }
+        static string GetDiff(string[] arrayStrings)
+        {
+            string ReturnString = "0";
+            Regex regexTimeSong = new Regex(@"\d+:\d+");
+            string[] timeSongs = new string[arrayStrings.Length];
+            string[] minuteNumber = new string[arrayStrings.Length];
+            string[] secondNumber = new string[arrayStrings.Length];
+            int[] timeAllSongs = new int[arrayStrings.Length];
+            for (int i = 0; i < arrayStrings.Length; i++)
+            {
+                foreach (Match match in regexTimeSong.Matches(arrayStrings[i]))
+                {
+                    timeSongs[i] = match.Groups[0].Value;
+                }
+            }
+            { // ќбработка секунд началась               
+                Regex regexSeconds = new Regex(@"\d*\d$");
+                for (int i = 0; i < arrayStrings.Length; i++)
+                {
+                    foreach (Match match in regexSeconds.Matches(timeSongs[i]))
+                    {
+                        secondNumber[i] = match.Groups[0].Value;
+                    }
+                }
+
+            } // ќбработка секунд закончилась
+            { // ќбработка минут началась
+
+                Regex regexMinute = new Regex(@"^\d*\d");
+                for (int i = 0; i < arrayStrings.Length; i++)
+                {
+                    foreach (Match match in regexMinute.Matches(timeSongs[i]))
+                    {
+                        minuteNumber[i] = match.Groups[0].Value;
+                    }
+                }
+            } // ќбработка минут закончилась
+            { // ќбработка длительности началась
+
+                for (int i = 0; i < arrayStrings.Length; i++)
+                {
+                    timeAllSongs[i] = Convert.ToInt32(secondNumber[i]);
+                    while (Convert.ToInt32(minuteNumber[i]) > 0)
+                    {
+                        minuteNumber[i] = Convert.ToString(Convert.ToInt32(minuteNumber[i]) - 1);
+                        timeAllSongs[i] += 60;
+                    }
+                }
+
+            } // ќбработка длительности закончилась
+            string song1 = " ", song2 = " ";
+            int min = int.MaxValue;
+            for (int i = 0; i < timeAllSongs.Length; i++)
+            {
+                for (int j = 0; j < timeAllSongs.Length; j++)
+                {
+                    if (j != i)
+                    {
+                        int nowmin = timeAllSongs[i] - timeAllSongs[j];
+                        if (nowmin < min && nowmin > 0)
+                        {
+                            min = nowmin;
+                            song1 = arrayStrings[i];
+                            song2 = arrayStrings[j];
+                        }
+                    }
+                }
+            }
+            Console.WriteLine("min : " + min + "\n" + song1 + "\n" + song2);
+            ReturnString = "min : " + min + "\n" + song1 + "\n" + song2;
+            return ReturnString;
+        }
+        static string[] GetSong()
+        {
+            string[] arrayStrings = {
+                                           "1. Gentle Giant Ц Free Hand [6:15]", 
+                                           "2. Supertramp Ц Child Of Vision [07:27]", 
+                                           "3. Camel Ц Lawrence [10:46]", 
+                                           "4. Yes Ц DonТt Kill The Whale [3:55]", 
+                                           "5. 10CC Ц Notell Hotel [04:58]", 
+                                           "6. Nektar Ц King Of Twilight [4:16]", 
+                                           "7. The Flower Kings Ц Monsters & Men [21:19]",
+                                           "8. Focus Ц Le Clochard [1:59]",
+                                           "9. Pendragon Ц Fallen Dream And Angel [5:23]",
+                                           "10. Kaipa Ц Remains Of The Day [08:02]}"
+                                       };
+            return arrayStrings;
+        }
+        static void UnShut()
+        {
+            Console.WriteLine();
+            Console.ReadKey();
+        }
+
+        static void Main(string[] args)
+        {
+            string[] arrayStrings;
+            arrayStrings = GetSong();
+            GetTimeSongs(arrayStrings);
+            GetLongShortSong(arrayStrings);
+            GetDiff(arrayStrings);
+            UnShut();
+        }
+    }
+}
+

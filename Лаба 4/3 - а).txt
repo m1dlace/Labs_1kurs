@@ -1,0 +1,65 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lab4_3_1
+{
+    class Program
+    {
+        static string GetStringWithoutSpace(char[] arrayChars)
+        {
+            string returnString = null;
+            for (int i = 0; i <= arrayChars.Length - 1; i++)
+            {
+                if (arrayChars[i] != ' ')
+                {
+                    returnString += arrayChars[i];
+                }
+            }
+            return returnString;
+        }
+        static string[] GetStrings()
+        {
+            Console.WriteLine("¬ведите строку");
+            string mainString = Console.ReadLine().ToLower();
+            string[] arrayStrings = mainString.Split(new[] { ' ', ',', ':', '?', '!', '.' }, StringSplitOptions.RemoveEmptyEntries);
+            return arrayStrings;
+        }
+        static string GetNewString(string[] arrayStrings)
+        {
+            string returnString = String.Empty;
+            for (int i = arrayStrings.Length - 1; i >= 0; i--)
+            {
+                char[] arrayChars = arrayStrings[i].ToCharArray();
+                {
+                    if (i == arrayStrings.Length - 1)
+                    {
+                        arrayChars[0] = char.ToUpper(arrayChars[0]);
+                    }
+                }
+                if (arrayChars[0] == '-' || arrayChars[arrayChars.Length - 1] == '-')
+                {
+                    if (arrayChars[0] == '-')
+                    {
+                        arrayChars[0] = ' ';
+                    }
+                    else
+                    {
+                        arrayChars[arrayChars.Length - 1] = ' ';
+                    }
+                }
+                arrayStrings[i] = GetStringWithoutSpace(arrayChars);
+                returnString += arrayStrings[i] + " ";
+            }
+            return returnString;
+        }
+        static void Main(string[] args)
+        {
+            string[] arrayStrings = GetStrings();
+            Console.WriteLine(GetNewString(arrayStrings));
+            Console.ReadKey();
+        }
+    }
+}

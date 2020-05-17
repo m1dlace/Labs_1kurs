@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lab4_2_2
+{
+    class Program
+    {
+        static string[] GetStrings()
+        {
+            Console.WriteLine("Примечание: Если вы не поставили точку программа сама её поставит");
+            Console.Write("Введите предложение :");
+            string mainString = Console.ReadLine();
+            string[] arrayStrings = mainString.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            return arrayStrings;
+        }
+        static string GetNewString(string[] arrayStrings)
+        {
+            string returnString = String.Empty;
+            int counterWords = 1;
+            for (int i = 0; i <= arrayStrings.Length - 1; i++)
+            {
+                if (arrayStrings[i] == "-")
+                {
+
+                }
+                else
+                {
+                    if (arrayStrings[i][arrayStrings[i].Length - 1] == ',' || arrayStrings[i][arrayStrings[i].Length - 1] == '!' || arrayStrings[i][arrayStrings[i].Length - 1] == '?' || arrayStrings[i][arrayStrings[i].Length - 1] == '.')
+                    {
+                        arrayStrings[i] = arrayStrings[i].Substring(0, arrayStrings[i].Length - 1) + "(" + counterWords++ + ")" + arrayStrings[i][arrayStrings.Length + 2];
+                    }
+                    else
+                    {
+                        arrayStrings[i] = arrayStrings[i] + "(" + counterWords++ + ")";
+                    }
+                }
+                returnString += arrayStrings[i] + " ";
+            }
+            return returnString;
+        }
+        static void Main(string[] args)
+        {
+            string[] arrayStrings = GetStrings();
+            Console.WriteLine(GetNewString(arrayStrings));
+            Console.ReadKey();
+        }
+    }
+}

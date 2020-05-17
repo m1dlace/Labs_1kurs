@@ -1,0 +1,32 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+namespace ConsoleApp7
+{
+    class Example
+    {
+        static void Main()
+        {
+            Console.WriteLine("__________________________________________________");
+            Console.WriteLine("_______________Made by student____________________");
+            Console.WriteLine("________________first course______________________");
+            Console.WriteLine("___________________IBT - 2________________________");
+            Console.WriteLine("_______________Zadoroznim Vladom__________________");
+            Console.WriteLine("__________________________________________________");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("__________________________________________________");
+            string input = "c+t booler father mather d+g fil+out sor+rou fitkout";
+            Console.WriteLine("Исходная строка:\n {0}", input);
+            string pattern = @"\w{1,100}[+]\w{1,100}";
+            string replacement1 = "CONCAT";
+            input = Regex.Replace(input, pattern, replacement1);
+            Console.WriteLine("\nВидоизмененная строка: \n" + input);
+            Console.WriteLine("__________________________________________________");
+            Console.ReadLine();
+        }
+    }
+}

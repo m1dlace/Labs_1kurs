@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lab4_1_1
+{
+    class Program
+    {
+        static string mainString;
+        static void GetString(out string mainString)
+        {
+            for (int i = 0; ; i++)
+            {
+                Console.Write("Введите предложение: ");
+                mainString = Console.ReadLine();
+                if (mainString == "")
+                {
+                    Console.Write("Введена пустая строка\n");
+                    continue;
+                }
+                break;
+            }
+        }
+        static void CheckString(string mainString)
+        {
+            bool findFlag = false;
+            char[] charArray = mainString.ToCharArray();
+            Console.Write("Все символы которые входят один раз: ");
+            for (int i = 0; i < charArray.Length; i++)
+            {
+                for (int k = 0; k < charArray.Length; k++)
+                {
+                    if (i != k)
+                    {
+                        if (charArray[i] == charArray[k])
+                        {
+                            findFlag = true;
+                        }
+                    }
+                }
+                if (findFlag == false)
+                {
+                    Console.Write(charArray[i]);
+                }
+                else
+                {
+                    findFlag = false;
+                }
+            }
+        }
+        static void UnShut()
+        {
+            Console.WriteLine();
+            Console.ReadKey();
+        }
+        static void Main(string[] args)
+        {
+            GetString(out mainString);
+            CheckString(mainString);
+            UnShut();
+        }
+    }
+}
+

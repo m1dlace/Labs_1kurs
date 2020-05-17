@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+namespace ConsoleApp7
+{
+    class Example
+    {
+        static void Main()
+        {
+
+            Console.WriteLine("__________________________________________________");
+            Console.WriteLine("_______________Made by student____________________");
+            Console.WriteLine("________________first course______________________");
+            Console.WriteLine("___________________IBT - 2________________________");
+            Console.WriteLine("_______________Zadoroznim Vladom__________________");
+            Console.WriteLine("__________________________________________________");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("__________________________________________________");
+            string txtSearche;
+            txtSearche = ("Колготы 192.234.1.12 бла бла бла Фигня Сельская жиза 178.102.2.10 мб чото там когда-то там");
+            string[] words = txtSearche.Split(' ');
+            Regex regex = new Regex(@"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b");
+            Console.WriteLine("Регистрозависимый поиск: ");
+            foreach (string str in words)
+            {
+                if (regex.IsMatch(str))
+                    Console.WriteLine(" \"{0}\" есть совпадения!", str);
+            }
+            Console.WriteLine("__________________________________________________");
+            Console.ReadKey();
+        }
+    }
+}

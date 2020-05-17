@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+
+namespace lab4_3_2
+{
+    class Program
+    {
+        static string[] GetWords()
+        {
+            Console.WriteLine("¬ведите строку");
+            string mainString = Console.ReadLine();
+            string[] arrayStrings = mainString.Split(new[] { ' ', ',', ':', '?', '!', '.' }, StringSplitOptions.RemoveEmptyEntries);
+            return arrayStrings;
+        }
+        static string GetNewString(string[] arrayStrings)
+        {
+            string resultString = String.Empty;
+            for (int i = arrayStrings.Length - 1; i >= 0; i--)
+            {
+                if (i == arrayStrings.Length - 1)
+                {
+                    arrayStrings[arrayStrings.Length - 1] = arrayStrings[arrayStrings.Length - 1].Substring(0, 1).ToUpper() + arrayStrings[arrayStrings.Length - 1].Remove(0, 1);
+                }
+                if (i == 0)
+                {
+                    arrayStrings[0] = arrayStrings[0].Substring(0, 1).ToLower() + arrayStrings[0].Remove(0, 1);
+                }
+                if (arrayStrings[i].Substring(0, 1) == "-")
+                {
+                    continue;
+                }
+                resultString += arrayStrings[i] + " ";
+            }
+            return resultString;
+        }
+        static void Main(string[] args)
+        {
+            string[] arrayStrings = GetWords();
+            Console.WriteLine(GetNewString(arrayStrings));
+            Console.WriteLine();
+            Console.ReadKey();
+        }
+    }
+}
+

@@ -1,0 +1,46 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lab4_4_1
+{
+    class Program
+    {
+        static string[] GetStrings()
+        {
+            string[] mainStrings = new string[7];
+            for (int i = 0; i < 7; i++)
+            {
+                mainStrings[i] = Console.ReadLine();
+            }
+            return mainStrings;
+        }
+        static string[] GetSubStrings(string mainString)
+        {
+            string[] arrayStrings = mainString.Split(new[] { ' ', ',', ':', '?', '!' }, StringSplitOptions.RemoveEmptyEntries);
+            return arrayStrings;
+        }
+        static void FindSubString(string[] subStrings, int j, string[] mainStrings)
+        {
+            char[] mainChars = mainStrings[j].ToCharArray();
+            if (mainChars.Length >= 4)
+            {
+                if (mainChars[mainChars.Length - 4] == '.' && mainChars[mainChars.Length - 3] == 'c' && mainChars[mainChars.Length - 2] == 'o' && mainChars[mainChars.Length - 1] == 'm')
+                {
+                    Console.WriteLine(mainStrings[j]);
+                }
+            }
+        }
+        static void Main(string[] args)
+        {
+            string[] mainStrings = GetStrings();
+            for (int j = 0; j < 7; j++)
+            {
+                FindSubString(GetSubStrings(mainStrings[j]), j, mainStrings);
+                Console.ReadKey();
+            }
+        }
+    }
+}

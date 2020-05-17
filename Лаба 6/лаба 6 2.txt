@@ -1,0 +1,53 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace ConsoleApp18
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("¬ведите сколько эллементов будет в прогрессии");
+            int z = int.Parse(Console.ReadLine());
+            int x = 3;
+            int[] arr = new int[z];
+            int k = 4;
+            for (int i = 0; i < z; i++)
+            {
+                arr[i] = x;
+                x = x * k;
+                Console.Write(arr[i] + ", ");
+            }
+
+            string path = @"D:\\input.txt";
+            using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.OpenOrCreate)))
+            {
+                File.Create(@"D:\\laba6.txt").Close();
+                for (int j = 0; j < z; j++)
+                {
+                    writer.Write($"{arr[j]} ");
+
+                }
+                writer.Close();        
+            }
+
+            string outpath = @"d:\output.txt";
+            string[] words = File.ReadAllText(path, Encoding.Default).Split(' ', ',', '.', '\n');
+
+            using (StreamWriter writer = new StreamWriter(outpath, false, Encoding.Default))
+            {
+               writer.Write($"3 и 7 Ёллементы: {words[3]}, {words[7]}");           
+            }
+            Pause();     
+        }
+        public static void Pause()
+        {
+            Console.ReadKey();
+        }
+
+    }
+}

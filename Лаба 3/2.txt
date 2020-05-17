@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp25
+{
+    class MyClass
+    {
+        static void Main()
+        {
+            int[,] mas = new int[7, 7];
+            Random rand = new Random();
+
+            for (int i = 0; i < mas.GetLength(0); i++)
+            {
+                for (int j = 0; j < mas.GetLength(1); j++)
+                {
+                    mas[i, j] = rand.Next(10);
+                    Console.Write("{0} ", mas[i, j]);
+                }
+                Console.WriteLine();
+            }
+
+
+            Console.WriteLine("\nПоворотик на 90 по часовой \n");
+
+
+            for (int j = 0; j < mas.GetLength(1); j++)
+            {
+                for (int i = mas.GetLength(0) - 1; i >= 0; i--)
+                {
+                    Console.Write("{0} ", mas[i, j]);
+                }
+                Console.WriteLine();
+            }
+
+            Console.ReadKey();
+        }
+    }
+}

@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using System.IO;
+
+namespace ConsoleApp7
+{
+    class Example
+    {
+        static void Main()
+        {
+            string x = Console.ReadLine();
+            string path = @"E:\\input.txt";
+            StreamWriter sw = new StreamWriter(@"E:\\intput.txt");   //для записи
+            sw.WriteLine(x);                                         //Запись переменной в файл
+            sw.Close();                                              //закрыли райтер
+
+            int z = 0;
+            int z2 = 0;
+            char[] y = x.ToCharArray();
+            char Reg = '*';
+            for ( int i = 0; i < y.Length; i++)
+            {
+                if (y[i] == Reg)
+                {
+                    z++;
+                }
+            }
+            string pattern = @"[0123456789]";
+            Regex regex = new Regex(pattern);
+         
+            string replacement1 = "*";
+            x = Regex.Replace(x, pattern, replacement1);
+            char[] y2 = x.ToCharArray();
+            for (int j = 0; j < y.Length; j++)
+            {
+                if (y2[j] == Reg)
+                {
+                    z2++;
+                }
+            }
+            int z3 = z2 - z;
+
+            string path2 = @"E:\\output.txt";
+            StreamWriter sr = new StreamWriter(@"E:\\output.txt");   
+            sr.WriteLine(x);
+            sr.WriteLine($"Кол-во замен: {z3}");
+            sr.Close();                                             
+
+            Console.ReadKey();
+        }
+    }
+}

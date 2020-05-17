@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+
+namespace lab4_6
+{
+    class Program
+    {
+        static int[] GetNumbers(string mainString)
+        {
+            int[] numbers = new int[3];
+            Regex regex = new Regex(@"-{0,1}\d{1,}");
+            int i = 0;
+            foreach (Match match in regex.Matches(mainString))
+            {
+                numbers[i] = int.Parse(match.Groups[0].Value);
+                i++;
+            }
+            return numbers;
+        }
+        static void PrintNumbers(int[] numbers)
+        {
+            for (int i = 0; i <= numbers.Length - 1; i++)
+            {
+                Console.WriteLine(numbers[i]);
+            }
+        }
+        static void UnShut()
+        {
+            Console.WriteLine();
+            Console.ReadKey();
+        }
+        static string GetString()
+        {
+            Console.Write("¬ведите строку: ");
+            string mainString = Console.ReadLine();
+            return mainString;
+        }
+        static void Main(string[] args)
+        {
+            string mainString = GetString();
+            PrintNumbers(GetNumbers(mainString));
+            UnShut();
+        }
+    }
+}

@@ -1,0 +1,64 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lab4_5_1
+{
+    class Program
+    {
+        static string[] GetSplitString()
+        {
+            string mainString = Console.ReadLine();
+            string[] arraystrings = mainString.Split(new[] { ' ', ',', ':', '?', '!' }, StringSplitOptions.RemoveEmptyEntries);
+            return arraystrings;
+        }
+        static void PrintTrueLogins(string[] arraystrings)
+        {
+            for (int word = 0; word < arraystrings.Length; word++)
+            {
+                if ((int)arraystrings[word][0] >= 65 && (int)arraystrings[word][0] <= 90)
+                {
+                    if ((int)arraystrings[word][arraystrings[word].Length - 1] >= 48 && (int)arraystrings[word][arraystrings[word].Length - 1] <= 57)
+                    {
+                        if ((int)arraystrings[word][arraystrings[word].Length - 2] >= 48 && (int)arraystrings[word][arraystrings[word].Length - 2] <= 57)
+                        {
+                            if ((int)arraystrings[word][arraystrings[word].Length - 3] >= 48 && (int)arraystrings[word][arraystrings[word].Length - 3] <= 57)
+                            {
+                            }
+                            else
+                            {
+                                for (int i = 1; i < arraystrings[word].Length - 2; i++)
+                                {
+                                    if ((int)arraystrings[word][i] >= 97 && (int)arraystrings[word][i] <= 122)
+                                    {
+                                        if (i == arraystrings[word].Length - 3)
+                                        {
+                                            Console.WriteLine(arraystrings[word]);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        static void UnShut()
+        {
+            Console.WriteLine();
+            Console.ReadKey();
+        }
+        static void Main(string[] args)
+        {
+            string[] arraystrings = GetSplitString();
+            PrintTrueLogins(arraystrings);
+            UnShut();
+        }
+    }
+}

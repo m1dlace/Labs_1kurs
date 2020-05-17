@@ -1,0 +1,32 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace ConsoleApp18
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            DirectoryInfo dir = new System.IO.DirectoryInfo(@"C:\Lab6_Temp");
+            dir.Create();
+            File.Copy(@"D:\lab.txt", @"C:\Lab6_Temp\lab_backup.txt", true);
+            DirectoryInfo dinf = new DirectoryInfo(@"C:\Lab6_Temp");
+            FileInfo[] finf = dinf.GetFiles();
+            foreach (FileInfo fi in finf)
+            {
+                Console.WriteLine();
+                Console.WriteLine(fi.FullName.ToString());
+                Console.WriteLine("Размерa файла:{0} KB", fi.Length / 1024);
+                Console.WriteLine("Время последнего изменения: {0}", fi.CreationTime);
+                Console.WriteLine("Время последнего доступа: {0}", fi.LastAccessTime);
+                Console.WriteLine();
+            }
+            Console.ReadKey();
+        }
+
+    }
+}

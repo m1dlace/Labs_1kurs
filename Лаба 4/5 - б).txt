@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+
+namespace lab4_5_2
+{
+    class Program
+    {
+        static string GetString()
+        {
+            Console.Write("¬ведите строку: ");
+            string mainString = Console.ReadLine();
+            return mainString;
+        }
+        static void GetLogins(string mainString)
+        {
+            Regex regex = new Regex(@"[A-Z]\w+\d\d+");
+            foreach (Match match in regex.Matches(mainString))
+            {
+                Console.WriteLine(match.Groups[0].Value);
+            }
+        }
+        static void UnShut()
+        {
+            Console.WriteLine();
+            Console.ReadKey();
+        }
+        static void Main(string[] args)
+        {
+            string mainString = GetString();
+            GetLogins(mainString);
+            UnShut();
+
+        }
+    }
+}

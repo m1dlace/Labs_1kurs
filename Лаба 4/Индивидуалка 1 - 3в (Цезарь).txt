@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+class Program
+{
+    class CaesarCipher
+    {
+        public static string Alphabet { get; set; }
+        public static int Shift { private get; set; }
+        public static string Encryption(string text)
+        {
+            text = text.ToLower();
+            var res = new StringBuilder();
+            for (int i = 0; i < text.Length; i++)
+                for (int j = 0; j < Alphabet.Length; j++)
+                    if (text[i] == Alphabet[j]) res.Append(Alphabet[(j + Shift) % Alphabet.Length]);
+
+            return res.ToString();
+        }
+        public static string Decryption(string crypt)
+        {
+            crypt = crypt.ToLower();
+            var res = new StringBuilder();
+            for (int i = 0; i < crypt.Length; i++)
+                for (int j = 0; j < Alphabet.Length; j++)
+                    if (crypt[i] == Alphabet[j]) res.Append(Alphabet[(j - Shift + Alphabet.Length) % Alphabet.Length]);
+
+            return res.ToString();
+        }
+
+    }
+    static void Main(string[] args)
+    {
+        Console.WriteLine("__________________________________________________");
+        Console.WriteLine("_______________Made by student____________________");
+        Console.WriteLine("________________first course______________________");
+        Console.WriteLine("___________________IBT - 2________________________");
+        Console.WriteLine("_______________Zadoroznim Vladom__________________");
+        Console.WriteLine("__________________________________________________");
+        Console.WriteLine("");
+        Console.WriteLine("");
+
+        Console.WriteLine("Шифр Цезаря");
+        Console.WriteLine("");
+        Console.WriteLine("__________________________________________________");
+
+        CaesarCipher.Alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+        CaesarCipher.Shift = 3;
+        string text = "Любая билебирда";
+        Console.WriteLine("Текст: {0}", text);
+        string crypt = CaesarCipher.Decryption(text);
+        Console.WriteLine("Шифруем текст ( на русском ): {0}", crypt);
+        text = " ";
+        text = CaesarCipher.Encryption(crypt);
+        Console.WriteLine("Дешифруем текст (на русском ): {0}", text);
+        Console.WriteLine("");
+        CaesarCipher.Alphabet = "abcdefghijklmnopqrstuvwxyz";
+        text = "Lubaya bileberba";
+        Console.WriteLine("Текст: {0}", text);
+        crypt = CaesarCipher.Decryption(text);
+        Console.WriteLine("Шифруем текст ( На инглишраскладке ): {0}", crypt);
+        text = " ";
+        text = CaesarCipher.Encryption(crypt);
+        Console.WriteLine("Дешифруем текст ( На инглишраскладке ): {0}", text);
+        Console.WriteLine("__________________________________________________");
+
+        Console.ReadKey();
+    }
+
+
+
+}

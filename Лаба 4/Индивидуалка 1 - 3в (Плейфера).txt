@@ -1,0 +1,245 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("__________________________________________________");
+            Console.WriteLine("_______________Made by student____________________");
+            Console.WriteLine("________________first course______________________");
+            Console.WriteLine("___________________IBT - 2________________________");
+            Console.WriteLine("_______________Zadoroznim Vladom__________________");
+            Console.WriteLine("__________________________________________________");
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            Console.WriteLine("Шифр Плейфера");
+            Console.WriteLine("");
+            Console.WriteLine("__________________________________________________");
+
+            char[] alphabet = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ ,.!".ToCharArray();
+
+
+            string text; //исходный текст для шифрования
+
+            int i_first = 0, j_first = 0;  //координаты первого символа пары
+            int i_second = 0, j_second = 0;//координаты второго символа пары
+            string s1 = "", s2 = ""; //строки для хранения зашифрованного символа
+            string encodetString; //зашифрованая строка
+            int rows = 0, columns = 0;
+            int i, j;
+            text = "";
+            encodetString = "";
+
+            bool isValidTable;
+            do
+            {
+                Console.Write("Количество колонок в таблице: ");
+                isValidTable = int.TryParse(Console.ReadLine(), out columns) && columns > 1; //переменной isValidTable присваиваем преобразованное целое число(количество стобцов) в качестве аргумента
+                if (!isValidTable)
+                {
+                    Console.WriteLine("Необходимо ввести число больше 1");
+                }
+                else
+                {
+                    rows = alphabet.Length / columns;
+                    isValidTable &= rows > 1 && rows * columns == alphabet.Length;
+                    if (!isValidTable)
+                    {
+                        Console.WriteLine("Необходимо ввести число колонок таким образом, чтобы число строк таблицы было больше 1 и таблица могла вмещать в себе все символы алфавита");
+                    }
+                }
+            }
+            while (!isValidTable); //выполнять пока false
+
+            // Пытаемся получить ключевое слово
+            char[] keyWord;
+            bool isValidKeyWord;
+            do
+            {
+                Console.Write("Введите ключевое слово: ");
+                keyWord = Console.ReadLine().ToUpper().Distinct().ToArray(); // Преобразуем в строковое представление, считываем ключ, переводим в верхний регистр, удаляем повторения, преобразуем в массив.
+                isValidKeyWord = keyWord.Length > 0 && keyWord.Length <= alphabet.Length; // если длина ключa > 0 и <= длины алфавита то возвращаем true/иначе false
+                if (!isValidKeyWord) // если false
+                {
+                    Console.WriteLine("Ключевое слово не может быть пустой строкой или содержать число уникальных символов больше размера алфавита");
+                }
+                else
+                {
+                    isValidKeyWord = !keyWord.Except(alphabet).Any(); //возвратит true, если ключ не содержит элементов, не имющихся в алфавите/иначе false
+                    if (!isValidKeyWord) //если false
+                    {
+                        Console.WriteLine("Ключевое слово не может содержать символы, которых нет в алфавите");
+                    }
+                }
+            }
+            while (!isValidKeyWord); //выполнять пока false
+
+            // Создаем таблицу
+            var table = new char[rows, columns];
+
+            // Вписываем в нее ключевое слово
+            for (i = 0; i < keyWord.Length; i++)
+            {
+                table[i / columns, i % columns] = keyWord[i];
+            }
+
+            // Исключаем уникальные символы ключевого слова из алфавита
+            alphabet = alphabet.Except(keyWord).ToArray();
+
+            // Вписываем алфавит
+            for (i = 0; i < alphabet.Length; i++)
+            {
+                int position = i + keyWord.Length;
+                table[position / columns, position % columns] = alphabet[i];
+            }
+
+            for (i = 0; i < rows; i++)
+            {
+                for (j = 0; j < columns; j++)
+                {
+                    Console.Write(table[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("Введите текст для зашифровки:");
+            text = Console.ReadLine().ToUpper();
+            int t = text.Length; //длина входного слова
+
+            ///проверяем, четное ли число символов в строке
+            int temp = t % 2;
+            if (temp != 0) //если нет
+            {               //то добавляем в конец строки символ " "
+                text = text.PadRight((t + 1), 'Я');
+            }
+
+            int len = text.Length / 2; /*длина нового массива -
+                                                равная половине длины входного слова
+                                                 т.к. в новом масиве каждый элемент будет
+                                                   содержать 2 элемента из старого массива*/
+
+            string[] str = new string[len]; //новый массив
+
+            int l = -1; //служебная переменная
+
+            for (i = 0; i < t; i += 2) //в старом массиве шаг равен 2
+            {
+                l++; //индексы для нового массива
+                if (l < len)
+                {
+                    //Элемент_нового_массива[i] =  Элемент_старого_массива[i] +  Элемент_старого_массива[i+1]
+                    str[l] = Convert.ToString(text[i]) + Convert.ToString(text[i + 1]);
+                }
+
+            }
+
+            ///координаты очередного найденного символа из каждой пары
+
+            foreach (string both in str)
+            {
+                for (i = 0; i < rows; i++)
+                {
+                    for (j = 0; j < columns; j++)
+                    {
+                        //координаты первого символа пары в исходной матрице
+                        if (both[0] == (table[i, j]))
+                        {
+                            i_first = i;
+                            j_first = j;
+
+                        }
+
+                        //координаты второго символа пары в исходной матрице
+                        if (both[1] == (table[i, j]))
+                        {
+                            i_second = i;
+                            j_second = j;
+
+                        }
+                    }
+                }
+
+                ///если пара символов находится в одной строке
+                if (i_first == i_second)
+                {
+                    if (j_first == columns - 1) /*если символ последний в строке,
+                                       кодируем его первым символом из матрицы*/
+                    {
+                        s1 = Convert.ToString(table[i_first, 0]);
+                    }
+                    //если символ не последний, кодируем его стоящим справа от него
+                    else
+                    {
+                        s1 = Convert.ToString(table[i_first, j_first + 1]);
+                    }
+
+                    if (j_second == columns - 1) /*если символ последний в строке
+                                       кодируем его первым символом из матрицы*/
+                    {
+                        s2 = Convert.ToString(table[i_second, 0]);
+                    }
+                    //если символ не последний, кодируем его стоящим справа от него
+                    else
+                    {
+                        s2 = Convert.ToString(table[i_second, j_second + 1]);
+                    }
+
+                }
+
+                ///если пара символов находится в одном столбце
+                if (j_first == j_second)
+                {
+                    if (i_first == rows - 1)
+                    {
+                        s1 = Convert.ToString(table[0, j_first]);
+                    }
+                    else
+                    {
+                        s1 = Convert.ToString(table[i_first + 1, j_first]);
+                    }
+
+                    if (i_second == rows - 1)
+                    {
+                        s2 = Convert.ToString(table[0, j_second]);
+                    }
+
+                    else
+                    {
+                        s2 = Convert.ToString(table[i_second + 1, j_second]);
+                    }
+                }
+
+                ///если пара символов находиться в разных столбцах и строках
+                if (i_first != i_second && j_first != j_second)
+                {
+
+                    s1 = Convert.ToString(table[i_first, j_second]);
+                    s2 = Convert.ToString(table[i_second, j_first]);
+                }
+
+                if (s1 == s2)
+                {
+                    encodetString = encodetString + s1 + "я" + s2;
+                }
+                else
+                {
+
+                    //записыавем результат кодирования
+                    encodetString = encodetString + s1 + s2;
+                }
+
+                Console.WriteLine(encodetString.ToLower());
+            }
+            Console.WriteLine("__________________________________________________");
+            Console.ReadKey();
+        }
+
+    }
+}
