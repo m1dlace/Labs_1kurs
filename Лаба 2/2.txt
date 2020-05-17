@@ -1,0 +1,34 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace laba2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            Console.Write("¬ведите кол-во слогаемых ");
+            double k = double.Parse(Console.ReadLine());
+
+
+            bool plus = true;
+            double pi = 0;
+        for (int i = 1; i < k; i += 2)
+        {
+                if (plus) pi += 1.0 / i;
+                else pi -= 1.0 / i;
+                plus = !plus;
+        }
+            pi *= 4;
+            Console.Write("pi= ");
+            Console.WriteLine(pi);
+            Console.ReadKey();
+
+        }
+
+
+    }
+}

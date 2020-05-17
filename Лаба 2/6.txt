@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Labka2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int year = int.Parse(Console.ReadLine()); 
+            int i = 0;
+            int t1 = year % 10;
+            int t2 = year % 100;
+            if (t1 == 1 && t2 != 11)
+            {
+                Console.Write(year);
+                Console.WriteLine(" Год");
+                i++;
+            }
+            if (t1 >= 2 && t1 <= 4 && (t2 < 10 || t2 >= 20))
+            {
+                Console.Write(year);
+                Console.WriteLine(" Года");
+                i++;
+            }
+              if (i == 0)
+            {
+                Console.Write(year);
+                Console.WriteLine(" Лет");
+            }
+         
+
+
+            Console.ReadKey();
+        }
+    }
+}

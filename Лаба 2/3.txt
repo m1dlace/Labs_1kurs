@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace laba2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int u, u1 = 0, u2 = 1, k = 0, j = 0;
+            Console.Write("n = ");
+            int n = int.Parse(Console.ReadLine());
+            for (int i = 1; i < n; i++)
+            {
+                u = u1 + u2;
+                u1 = u2;
+                u2 = u;
+                if (u > 999 && u < 10000)
+                {
+                    k++;
+                }
+                else
+                {
+                    j++;
+                }
+                
+            }
+            Console.Write(k);
+            Console.Write(" Четырех значных чисел");
+            Console.ReadKey();
+
+
+
+        }
+    }
+}

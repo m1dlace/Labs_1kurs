@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace laba2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            Console.Write("¬ведите x= ");
+            double x = double.Parse(Console.ReadLine());
+            Console.Write("¬ведите q= ");
+            double q = double.Parse(Console.ReadLine());
+
+
+            double Cos=0;
+
+
+            double a = 1;
+            double s;
+            double i = 2;
+
+            bool plus = true;
+
+
+            while (Cos < q)
+            {
+                i += 2;
+                s = Math.Pow(x, i);
+                a = i * a * (i-1);
+                if (plus)
+                {
+                    Cos += s / a;
+                }
+                else
+                {
+                    Cos -= +s / a;
+                    plus = !plus;
+                }
+
+            }
+            
+                
+
+            Console.WriteLine(Cos);
+            Console.ReadKey();
+
+
+
+        }
+    }
+}
